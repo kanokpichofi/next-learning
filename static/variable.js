@@ -21,7 +21,7 @@ export const country_option = [
 export const contact_type_option = [
     {
         title: "Mobile",
-        value: "Value",
+        value: "Mobile",
     },
     {
         title: "Fax",

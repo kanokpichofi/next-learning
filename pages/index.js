@@ -8,14 +8,16 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { sanity_client } from "../plugin/sanity";
 import { useRouter } from "next/router";
+import { useDispatch, useSelector } from "react-redux";
+import { SET_COMPANY } from "../redux/company";
 
 export default function BasicTable() {
-    const [companyData, setCompanyData] = useState();
     const router = useRouter();
-
+    const { company } = useSelector((state) => state.company);
+    const dispatch = useDispatch();
     async function getData() {
         await sanity_client.fetch('*[_type == "company"]').then((res) => {
-            setCompanyData(res);
+            dispatch(SET_COMPANY(res));
         });
     }
 
@@ -69,7 +71,7 @@ export default function BasicTable() {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {companyData?.map((company) => (
+                        {company?.map((company) => (
                             <TableRow
                                 key={company._id}
                                 sx={{
