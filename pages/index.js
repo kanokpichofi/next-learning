@@ -13,7 +13,7 @@ import { SET_COMPANY } from "../redux/company";
 
 export default function BasicTable() {
     const router = useRouter();
-    const { company } = useSelector((state) => state.company);
+    const { companies } = useSelector((state) => state.company);
     const dispatch = useDispatch();
     async function getData() {
         await sanity_client.fetch('*[_type == "company"]').then((res) => {
@@ -71,7 +71,7 @@ export default function BasicTable() {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {company?.map((company) => (
+                        {companies?.map((company) => (
                             <TableRow
                                 key={company._id}
                                 sx={{

@@ -3,11 +3,11 @@ import { createSlice } from "@reduxjs/toolkit";
 export const companySlice = createSlice({
     name: "company",
     initialState: {
-        company: null,
+        companies: null,
     },
     reducers: {
         SET_COMPANY: (state, action) => {
-            state.company = action.payload;
+            state.companies = action.payload;
         },
     },
 });

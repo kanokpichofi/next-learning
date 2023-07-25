@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { sanity_client } from "../../plugin/sanity";
 import { useRouter } from "next/router";
-import InputBox from "../../components/InputBox";
-import SelectInput from "../../components/SelectInput";
+import { Button, TextField, Autocomplete } from "@mui/material";
 import {
     country_option,
     currency_option,
@@ -105,137 +104,153 @@ export default function CreateCompany() {
             <h1 className="text-3xl">Account Details</h1>
             <div className="divider"></div>
             <p className="text-xl">
-                Please supply the following information about the company
+                Please supply the following information about the company.
             </p>
 
             <div className="flex flex-col space-y-4">
-                <InputBox
-                    title="Company Name"
-                    placeholder="Company Name"
-                    value={companyName}
-                    onChange={setCompanyName}
+                <TextField
+                    label="Company Name"
+                    variant="outlined"
+                    size="small"
+                    fullWidth
+                    required
                 />
-
-                <SelectInput
-                    title="Country"
-                    placeholder="Country"
+                <Autocomplete
+                    id="country-box"
                     options={country_option}
-                    value={country}
-                    onChange={setCountry}
+                    getOptionLabel={(option) => option.title}
+                    renderInput={(params) => (
+                        <TextField
+                            {...params}
+                            label="Country"
+                            variant="outlined"
+                            size="small"
+                        />
+                    )}
+                ></Autocomplete>
+                <TextField
+                    label="Address"
+                    variant="outlined"
+                    size="small"
+                    fullWidth
                 />
-                <InputBox
-                    title="Address"
-                    placeholder="Address"
-                    value={address}
-                    onChange={setAddress}
-                />
-                <InputBox
-                    title="Address 2"
-                    placeholder="Address 2"
-                    value={address2}
-                    onChange={setAddress2}
+                <TextField
+                    label="Address 2"
+                    variant="outlined"
+                    size="small"
+                    fullWidth
                 />
                 <div className="flex flex-row space-x-2">
-                    <InputBox
-                        title="City"
-                        placeholder="City"
-                        value={city}
-                        onChange={setCity}
+                    <TextField
+                        label="City"
+                        variant="outlined"
+                        size="small"
+                        fullWidth
                     />
-                    <InputBox
-                        title="Provice / State"
-                        placeholder="Provice / State"
-                        value={provice}
-                        onChange={setProvice}
+                    <TextField
+                        label="Provice / State"
+                        variant="outlined"
+                        size="small"
+                        fullWidth
                     />
                 </div>
-                <InputBox
-                    title="Postal / Zip Code"
-                    placeholder="Postal / Zip Code"
-                    value={zipCode}
-                    onChange={setZipcode}
+                <TextField
+                    label="Postal / Zip Code"
+                    variant="outlined"
+                    size="small"
+                    fullWidth
                 />
                 <div className="flex flex-row space-x-2">
-                    <InputBox
-                        title="Contact First Name"
-                        placeholder="Contact Name"
-                        value={contactName}
-                        onChange={setContactName}
+                    <TextField
+                        label="Contact First Name"
+                        variant="outlined"
+                        size="small"
+                        fullWidth
                     />
-                    <InputBox
-                        title="Contact Last Name"
-                        placeholder="Contact Last Name"
-                        value={contactLastName}
-                        onChange={setContactLastName}
-                    />
-                </div>
-                <div className="flex flex-row space-x-2">
-                    <InputBox
-                        title="Contact Title"
-                        placeholder="Contact Title"
-                        value={contactTitle}
-                        onChange={setContactTitle}
-                    />
-                    <InputBox
-                        title="Contact Email"
-                        placeholder="Contact Email"
-                        value={contactEmail}
-                        onChange={setcontactEmail}
+                    <TextField
+                        label="Contact Last Name"
+                        variant="outlined"
+                        size="small"
+                        fullWidth
                     />
                 </div>
                 <div className="flex flex-row space-x-2">
-                    <InputBox
-                        title="Phone"
-                        placeholder="Phone"
-                        value={phone}
-                        onChange={setPhone}
+                    <TextField
+                        label="Contact Title"
+                        variant="outlined"
+                        size="small"
+                        fullWidth
                     />
-                    <SelectInput
-                        title="Contact Type"
-                        placeholder="Contact Type"
+                    <TextField
+                        label="Contact Email"
+                        variant="outlined"
+                        size="small"
+                        fullWidth
+                    />
+                </div>
+                <div className="flex flex-row space-x-2">
+                    <TextField
+                        label="Phone"
+                        variant="outlined"
+                        size="small"
+                        fullWidth
+                    />
+                    <Autocomplete
+                        id="contact-type-box"
                         options={contact_type_option}
-                        value={contactType}
-                        onChange={setContactType}
-                    />
+                        getOptionLabel={(option) => option.title}
+                        renderInput={(params) => (
+                            <TextField
+                                {...params}
+                                label="Contact Type"
+                                variant="outlined"
+                                size="small"
+                            />
+                        )}
+                        fullWidth
+                    ></Autocomplete>
                 </div>
                 <div className="flex flex-row space-x-2">
                     <div className="basis-1/2">
-                        <InputBox
-                            title="Contract End Date"
-                            placeholder="Contract End Date"
-                            type="date"
-                            value={contractEndDate}
-                            onChange={setContractEndDate}
+                        <TextField
+                            label="Contract End Date"
+                            variant="outlined"
+                            size="small"
+                            fullWidth
+                            required
                         />
                     </div>
                     <div className="basis-4/12">
-                        {" "}
-                        <InputBox
-                            title="Paid"
-                            placeholder="Paid"
-                            type="number"
-                            value={paid}
-                            onChange={setPaid}
+                        <TextField
+                            label="Contract Value"
+                            variant="outlined"
+                            size="small"
+                            fullWidth
                         />
                     </div>
                     <div className="basis-2/12">
-                        <SelectInput
-                            title="Currency"
-                            placeholder="Currency"
+                        <Autocomplete
+                            id="currency-box"
                             options={currency_option}
-                            value={currency}
-                            onChange={setCurrency}
-                        />
+                            getOptionLabel={(option) => option.title}
+                            renderInput={(params) => (
+                                <TextField
+                                    {...params}
+                                    label="Currency"
+                                    variant="outlined"
+                                    size="small"
+                                    required
+                                />
+                            )}
+                            fullWidth
+                        ></Autocomplete>
                     </div>
                 </div>
             </div>
             <div className="flex w-full justify-end">
-                <button
-                    onClick={saveCompany}
-                    className="btn btn-outline btn-accent"
-                >
+                <Button>
                     Save Change
-                </button>
+                </Button>
             </div>
         </div>
     );
