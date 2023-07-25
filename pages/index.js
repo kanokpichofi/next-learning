@@ -21,13 +21,13 @@ export default function BasicTable() {
         });
     }
 
-    function onEditData(companyId) {
+    function onEditData(record) {
         const data = {
-            companyId: companyId,
+            record,
         };
         router.push({
             pathname: "/create-company",
-            query: data,
+            query: record,
         });
     }
 
@@ -111,7 +111,7 @@ export default function BasicTable() {
                                     <button
                                         className="btn btn-info text-white"
                                         onClick={() => {
-                                            onEditData(company._id);
+                                            onEditData(company);
                                         }}
                                     >
                                         {" "}

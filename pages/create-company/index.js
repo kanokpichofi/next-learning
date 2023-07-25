@@ -20,14 +20,7 @@ export default function CreateCompany() {
     } = useForm();
 
     if (Object.keys(router.query).length !== 0 && companyData == null) {
-        getCompanyDataById(router.query.companyId);
-    }
-
-    async function getCompanyDataById(id) {
-        await sanity_client.getDocument(id).then((res) => {
-            setCompanyData(res);
-            setupData(res);
-        });
+        setCompanyData(router.query)
     }
 
     function countryChange(e, value, reason) {
@@ -67,16 +60,15 @@ export default function CreateCompany() {
             currency: data.currency,
         };
         try {
-            // let response;
-            // if (Object.keys(router.query).length !== 0) {
-            //     response = await sanity_client
-            //         .patch(router.query.companyId)
-            //         .set(newDocument)
-            //         .commit();
-            // } else {
-            //     response = await sanity_client.create(newDocument);
-            // }
-            const response = await sanity_client.create(newDocument);
+            let response;
+            if (Object.keys(router.query).length !== 0) {
+                response = await sanity_client
+                    .patch(companyData?._id)
+                    .set(newDocument)
+                    .commit();
+            } else {
+                response = await sanity_client.create(newDocument);
+            }
             alert("Successfully save company");
             router.push({
                 pathname: "/",
@@ -104,6 +96,7 @@ export default function CreateCompany() {
                     required
                     error={errors.companyName ? true : false}
                     helperText={errors.companyName?.message}
+                    defaultValue={companyData?.companyName}
                 />
                 <Autocomplete
                     id="country-box"
@@ -111,6 +104,7 @@ export default function CreateCompany() {
                     options={country_option}
                     getOptionLabel={(option) => option.title}
                     onChange={countryChange}
+                    defaultValue={country_option.find(data => data.value == companyData?.country)}
                     renderInput={(params) => (
                         <TextField
                             {...params}
@@ -130,6 +124,7 @@ export default function CreateCompany() {
                     fullWidth
                     error={errors.address ? true : false}
                     helperText={errors.address?.message}
+                    defaultValue={companyData?.address}
                 />
                 <TextField
                     label="Address 2"
@@ -139,6 +134,7 @@ export default function CreateCompany() {
                     fullWidth
                     error={errors.address_2 ? true : false}
                     helperText={errors.address_2?.message}
+                    defaultValue={companyData?.address2}
                 />
                 <div className="flex flex-row space-x-2">
                     <TextField
@@ -149,6 +145,7 @@ export default function CreateCompany() {
                         fullWidth
                         error={errors.city ? true : false}
                         helperText={errors.city?.message}
+                        defaultValue={companyData?.city}
                     />
                     <TextField
                         label="Provice / State"
@@ -158,6 +155,7 @@ export default function CreateCompany() {
                         fullWidth
                         error={errors.proviceState ? true : false}
                         helperText={errors.proviceState?.message}
+                        defaultValue={companyData?.provice}
                     />
                 </div>
                 <TextField
@@ -168,6 +166,7 @@ export default function CreateCompany() {
                     fullWidth
                     error={errors.postalCode ? true : false}
                     helperText={errors.postalCode?.message}
+                    defaultValue={companyData?.zipCode}
                 />
                 <div className="flex flex-row space-x-2">
                     <TextField
@@ -178,6 +177,7 @@ export default function CreateCompany() {
                         fullWidth
                         error={errors.contactFirstName ? true : false}
                         helperText={errors.contactFirstName?.message}
+                        defaultValue={companyData?.contactName}
                     />
                     <TextField
                         label="Contact Last Name"
@@ -187,6 +187,7 @@ export default function CreateCompany() {
                         fullWidth
                         error={errors.contactLastName ? true : false}
                         helperText={errors.contactLastName?.message}
+                        defaultValue={companyData?.contactLastName}
                     />
                 </div>
                 <div className="flex flex-row space-x-2">
@@ -198,6 +199,7 @@ export default function CreateCompany() {
                         fullWidth
                         error={errors.contactTitle ? true : false}
                         helperText={errors.contactTitle?.message}
+                        defaultValue={companyData?.contactTitle}
                     />
                     <TextField
                         label="Contact Email"
@@ -207,6 +209,7 @@ export default function CreateCompany() {
                         fullWidth
                         error={errors.contactEmail ? true : false}
                         helperText={errors.contactEmail?.message}
+                        defaultValue={companyData?.contactEmail}
                     />
                 </div>
                 <div className="flex flex-row space-x-2">
@@ -218,6 +221,7 @@ export default function CreateCompany() {
                         fullWidth
                         error={errors.phone ? true : false}
                         helperText={errors.phone?.message}
+                        defaultValue={companyData?.phone}
                     />
                     <Autocomplete
                         id="contact-type-box"
@@ -225,6 +229,7 @@ export default function CreateCompany() {
                         options={contact_type_option}
                         getOptionLabel={(option) => option.title}
                         onChange={contactTypeChange}
+                        defaultValue={contact_type_option.find(data => data.value == companyData?.contactType)}
                         renderInput={(params) => (
                             <TextField
                                 {...params}
@@ -249,6 +254,7 @@ export default function CreateCompany() {
                             required
                             error={errors.contractEndDate ? true : false}
                             helperText={errors.contractEndDate?.message}
+                            defaultValue={companyData?.contractEndDate}
                         />
                     </div>
                     <div className="flex flex-row space-x-2 basis-1/2">
@@ -260,10 +266,11 @@ export default function CreateCompany() {
                             fullWidth
                             error={errors.contractValue ? true : false}
                             helperText={errors.contractValue?.message}
+                            defaultValue={companyData?.paid}
                         />
                         <FormControl variant="outlined" size="small" fullWidth required error={errors.contractCurrency ? true : false}>
                             <InputLabel id="currency-select-outlined-label">Currency</InputLabel>
-                            <Select {...register('contractCurrency')} defaultValue='USD' displayEmpty label="Currency">
+                            <Select {...register('contractCurrency')} defaultValue={companyData?.currency ? companyData?.currency : 'USD'} displayEmpty label="Currency">
                                 <MenuItem value="USD">USD</MenuItem>
                                 <MenuItem value="CAD">CAD</MenuItem>
                             </Select>
