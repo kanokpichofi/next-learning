@@ -21,6 +21,9 @@ jobs:
           echo "AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}"
           echo "AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}"
           amplify configure --appid ${{ secrets.AMPLIFY_APP_ID }}
+          
+      - name: Install Dependencies
+        run: npm install
 
       - name: Build Next.js app
         run: npm run build
