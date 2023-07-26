@@ -8,6 +8,11 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    
+    env:
+      NEXT_PUBLIC_SANITY_PROJECT_ID: ${{secrets.NEXT_PUBLIC_SANITY_PROJECT_ID}}
+      NEXT_PUBLIC_SANITY_DATASET: ${{secreats.NEXT_PUBLIC_SANITY_DATASET}}
+      NEXT_PUBLIC_SANITY_TOKEN: ${{secrets.NEXT_PUBLIC_SANITY_TOKEN}}
 
     steps:
       - name: Checkout code
