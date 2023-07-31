@@ -45,7 +45,7 @@ export default function BasicTable() {
     return (
         <div className="p-6">
             <div className="flex flex-row justify-between">
-                <h2 className="text-3xl"> Companies Test Disable auto</h2>
+                <h2 className="text-3xl"> Companies Test PR action</h2>
                 <a className="btn btn-accent text-white" href="/create-company">
                     ADD NEW COMPANY
                 </a>
