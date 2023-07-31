@@ -1,0 +1,16 @@
+name: Build & Deploy Amplify
+
+on:
+  workflow_dispatch:
+
+jobs:
+  run_curl_command:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Run Curl Command
+        run: |
+          curl -X POST -d {} "https://webhooks.amplify.us-east-1.amazonaws.com/prod/webhooks?id=9a4bb72b-088a-4650-8932-38e186b2cb83&token=C4VakvUbqrjEkhLuZnOMIFvXXsVY5JaDXctCadIus&operation=startbuild" -H "Content-Type:application/json"
