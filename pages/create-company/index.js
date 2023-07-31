@@ -282,7 +282,7 @@ export default function CreateCompany() {
                 </div>
             </div>
             <div className="flex w-full justify-end">
-                <Button variant="contained" onClick={handleSubmit(saveCompany)}>Add</Button>
+                <Button variant="contained" onClick={handleSubmit(saveCompany)}> {Object.keys(router.query).length !== 0 ? "UPDATE" : "ADD"} </Button>
             </div>
         </div>
     );
